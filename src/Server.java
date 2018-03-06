@@ -1,6 +1,7 @@
 //package server;
 import java.net.*;
 import java.io.*;
+import java.util.*;
 
 
 public class Server {
@@ -27,19 +28,20 @@ public class Server {
 			System.out.println(e.getStackTrace());
 		}
 		
+		Scanner scan = new Scanner(System.in);
+		StringBuilder msg = new StringBuilder();
 		
 		try{
 			
 			while ((inputline = br.readLine()) != null){
-				System.out.println(inputline + "||" + outputline);
-				if (inputline.equals("quit\r\n")){
-					csoc.close();
-					break;
-				}
-				//Thread.sleep(1000);
-				out.write(outputline);
+				System.out.println(inputline);
+				
+				msg.delete(0, msg.length());
+				msg.append(scan.nextLine());
+				msg.append("\r\n");
+				
+				out.write(msg.toString());
 				out.flush();
-				System.out.println("written");
 			}
 		} catch (IOException e) {
 			System.out.println(e.getStackTrace());

@@ -27,7 +27,7 @@ public class Hello{
   Scanner scan = new Scanner(System.in);
   
   while (!msg.toString().equals("quit\r\n")) {
- msg.delete(0, msg.length());
+    msg.delete(0, msg.length());
     msg.append(scan.nextLine());
     msg.append("\r\n");
     write.write(msg.toString());
