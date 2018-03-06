@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.*;
+import java.util.*;
 
 public class Hello{
 
@@ -22,17 +23,20 @@ public class Hello{
    System.out.println(e.toString());
   }
 
-  write.write("DEFINE fd-eng-lat gold\r\n");
-  write.flush();
-  System.out.println("Define written");
+  StringBuilder msg = new StringBuilder();
+  Scanner scan = new Scanner(System.in);
   
+  while (!msg.toString().equals("quit\r\n")) {
+ msg.delete(0, msg.length());
+    msg.append(scan.nextLine());
+    msg.append("\r\n");
+    write.write(msg.toString());
+    write.flush();
+    
+    System.out.print(in.readLine() + "\n>");
+  }
   
-  String l = in.readLine();
-  System.out.println(l);
-  System.out.println("ex loop");
-  
-  write.write("quit\r\n");
-  write.flush();
+  scan.close();
   
   if (soc != null) {
    try {
