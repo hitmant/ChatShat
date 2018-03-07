@@ -2,7 +2,7 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class Hello{
+public class Client_main{
 
  public static void main(String[] a) throws IOException{
   Socket soc = null;
@@ -22,18 +22,24 @@ public class Hello{
   } catch (IOException e){
    System.out.println(e.toString());
   }
+  
+  Client_thread recieve = new Client_thread(soc);
+  (new Thread(recieve)).start();
 
   StringBuilder msg = new StringBuilder();
   Scanner scan = new Scanner(System.in);
+  //String inputline = null;
   
-  while (!msg.toString().equals("quit\r\n")) {
+  while (!msg.toString().equals("quit\r\n") && !soc.isClosed()) {
     msg.delete(0, msg.length());
     msg.append(scan.nextLine());
     msg.append("\r\n");
     write.write(msg.toString());
     write.flush();
     
-    System.out.print(in.readLine() + "\n>");
+    //System.out.print((inputline = in.readLine()) + "\n>");
+    //if (inputline.equals("quit"))
+    //      break;
   }
   
   scan.close();
