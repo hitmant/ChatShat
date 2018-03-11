@@ -12,6 +12,7 @@ public class Server_thread implements Runnable{
 	public void run(){
 		System.out.println("thread started");
 		
+		StringBuilder inputline = new StringBuilder();
 		BufferedReader in = null;
 		try {
 			in = new BufferedReader(new InputStreamReader(
@@ -20,13 +21,18 @@ public class Server_thread implements Runnable{
 			return;
 		}
 		
-		while (true){
+		while (!inputline.toString().equals("null")
+				&& !inputline.toString().equals("quit")){
 			try {
-				System.out.println(in.readLine());
+				inputline.delete(0, inputline.length());
+				inputline.append(in.readLine());
+				System.out.println("\n" + inputline);
 			} catch (IOException e) {
-				e.printStackTrace();
+				break;
 			}
 		}
+		
+		Server_main.setThread(false);
 	}
 
 }

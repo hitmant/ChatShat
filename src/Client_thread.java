@@ -11,7 +11,7 @@ public class Client_thread implements Runnable{
 	public void run(){
 		System.out.println("thread started");
 		
-		StringBuilder input = new StringBuilder();
+		StringBuilder inputline = new StringBuilder();
 		BufferedReader in = null;
 		try {
 			in = new BufferedReader(new InputStreamReader(
@@ -20,13 +20,17 @@ public class Client_thread implements Runnable{
 			return;
 		}
 		
-		while (true){
+		while (!inputline.toString().equals("null")
+				&& !inputline.toString().equals("quit")){
 			try {
-				System.out.println(in.readLine());
+				inputline.delete(0, inputline.length());
+				inputline.append(in.readLine());
+				System.out.println(inputline);
 			} catch (IOException e) {
-				e.printStackTrace();
+				break;
 			}
 		}
+		Client_main.setThread(false);
 		
 	}
 }
